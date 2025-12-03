@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryan | Cloud Architect Portfolio</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Custom Config & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'blink': 'blink 1s infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'slide-up': 'slideUp 0.5s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #020617; /* slate-950 */
+            color: #e2e8f0; /* slate-200 */
+        }
+        .bg-grid-pattern {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.9) 2px, transparent 2px),
+            linear-gradient(90deg, rgba(15, 23, 42, 0.9) 2px, transparent 2px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse 60% 60% at 50% 0%, black 70%, transparent 100%);
+        }
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+        .hidden-section {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-cyan-500/30 overflow-x-hidden">
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 bg-grid-pattern opacity-20 pointer-events-none z-0"></div>
+    <div class="fixed inset-0 pointer-events-none z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Navigation -->
+        <nav class="flex flex-col md:flex-row items-center justify-between py-8">
+            <div class="flex items-center gap-2 mb-4 md:mb-0 cursor-pointer" onclick="switchTab('home')">
+                <i data-lucide="cpu" class="text-cyan-500 w-8 h-8"></i>
+                <span class="text-2xl font-bold text-white tracking-tighter">
+                    PORTFOLIO<span class="text-cyan-500">.IO</span>
+                </span>
+            </div>
+            
+            <div class="flex items-center space-x-2 bg-slate-900/80 backdrop-blur-md p-1.5 rounded-full border border-slate-800">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-cyan-400 bg-cyan-500/20 border border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+                    <i data-lucide="terminal" class="w-4 h-4"></i>
+                    <span class="font-mono text-sm font-semibold">Home</span>
+                </button>
+                <button onclick="switchTab('about')" id="nav-about" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800">
+                    <i data-lucide="briefcase" class="w-4 h-4"></i>
+                    <span class="font-mono text-sm font-semibold">About Me</span>
+                </button>
+                <button onclick="switchTab('career')" id="nav-career" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800">
+                    <i data-lucide="target" class="w-4 h-4"></i>
+                    <span class="font-mono text-sm font-semibold">Goals & Plan</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="min-h-[80vh] py-8 relative">
+            
+            <!-- HOME SECTION -->
+            <section id="home" class="section-content flex flex-col items-center justify-center min-h-[60vh] text-center space-y-8 animate-fade-in">
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full blur-2xl opacity-20 animate-pulse-slow"></div>
+                    <div class="relative p-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full">
+                        <div class="bg-slate-900 rounded-full p-4">
+                            <i data-lucide="terminal" class="text-cyan-400 w-16 h-16"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-4 max-w-2xl">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tighter">
+                        Hello, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Ryan</span>
+                    </h1>
+                    <div class="h-8 font-mono text-cyan-400 text-lg md:text-xl">
+                        &gt; <span id="typewriter-text"></span><span class="animate-blink">_</span>
+                    </div>
+                    <p class="text-slate-400 text-lg max-w-lg mx-auto pt-4">
+                        Aspiring Cloud Architect | Data Centre Specialist<br>
+                        Building scalable infrastructure for the future.
+                    </p>
+                </div>
+
+                <div class="flex gap-4 pt-8">
+                    <a href="mailto:240079003@stu.vtc.edu.hk" class="flex items-center gap-2 px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-cyan-500/25">
+                        <i data-lucide="mail" class="w-4 h-4"></i> Contact Me
+                    </a>
+                    <a href="#" target="_blank" class="flex items-center gap-2 px-6 py-3 border border-slate-600 hover:border-slate-400 text-slate-300 rounded-lg font-medium transition-all">
+                        <i data-lucide="github" class="w-4 h-4"></i> GitHub
+                    </a>
+                </div>
+            </section>
+
+            <!-- ABOUT SECTION -->
+            <section id="about" class="section-content hidden-section space-y-12 pb-12 animate-slide-up">
+                
+                <!-- Intro -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6 border-b border-slate-700 pb-4">
+                        <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
+                            <i data-lucide="terminal" class="text-white w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white tracking-tight">About Me</h2>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 w-full">
+                        <p class="text-slate-300 leading-relaxed text-lg mb-6">
+                            I am a dedicated student pursuing a <strong class="text-cyan-400">Higher Diploma in Cloud and Data Centre Administration</strong>. 
+                            My passion lies in designing robust infrastructure and automating workflows. I am eager to apply my knowledge in virtualization, 
+                            networking, and cloud platforms to solve real-world problems.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Cloud Computing</span>
+                            <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Networking</span>
+                            <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Linux</span>
+                            <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Virtualization</span>
+                            <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Python</span>
+                            <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Cybersecurity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6 border-b border-slate-700 pb-4">
+                        <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
+                            <i data-lucide="graduation-cap" class="text-white w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white tracking-tight">Education & Timeline</h2>
+                    </div>
+                    
+                    <div class="space-y-8 relative border-l-2 border-slate-700 ml-3 pl-8">
+                        <div class="relative group">
+                            <div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-cyan-500 group-hover:scale-125 transition-transform"></div>
+                            <h3 class="text-xl font-bold text-white">Higher Diploma in Cloud and Data Centre Administration</h3>
+                            <span class="text-cyan-400 font-mono text-sm">2024 - Present</span>
+                            <p class="text-slate-400 mt-1 font-medium">IVE (Institute of Vocational Education)</p>
+                            <p class="text-slate-500 mt-2 text-sm">Focusing on cloud infrastructure, virtualization, and network security. Current GPA: 3.5</p>
+                        </div>
+                        <div class="relative group">
+                            <div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-cyan-500 group-hover:scale-125 transition-transform"></div>
+                            <h3 class="text-xl font-bold text-white">Secondary Education</h3>
+                            <span class="text-cyan-400 font-mono text-sm">2018 - 2024</span>
+                            <p class="text-slate-400 mt-1 font-medium">ABC Secondary School</p>
+                            <p class="text-slate-500 mt-2 text-sm">ICT Elective. Member of Computer Society.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Internship -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6 border-b border-slate-700 pb-4">
+                        <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
+                            <i data-lucide="server" class="text-white w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white tracking-tight">Internship Experience</h2>
+                    </div>
+
+                    <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 border-l-4 border-l-blue-500 rounded-xl p-6">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">IT Support Intern</h3>
+                                <p class="text-cyan-400 text-lg">Tech Solutions Ltd.</p>
+                            </div>
+                            <span class="px-4 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm font-mono mt-2 md:mt-0 w-fit">Summer 2024</span>
+                        </div>
+                        <ul class="space-y-2">
+                            <li class="flex items-start gap-2 text-slate-300"><i data-lucide="chevron-right" class="text-blue-500 w-5 h-5 mt-0.5"></i> Assisted in server rack installation and cabling in Tier-3 Data Centre.</li>
+                            <li class="flex items-start gap-2 text-slate-300"><i data-lucide="chevron-right" class="text-blue-500 w-5 h-5 mt-0.5"></i> Monitored system health using Nagios and deployed patches.</li>
+                            <li class="flex items-start gap-2 text-slate-300"><i data-lucide="chevron-right" class="text-blue-500 w-5 h-5 mt-0.5"></i> Configured Cisco switches and VLANs for office network segregation.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Projects -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6 border-b border-slate-700 pb-4">
+                        <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
+                            <i data-lucide="code" class="text-white w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white tracking-tight">Project Showcase</h2>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Project 1 -->
+                        <div class="group bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:border-cyan-500 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:-translate-y-1">
+                            <div class="flex flex-col md:flex-row h-full">
+                                <div class="w-full md:w-64 h-48 md:h-auto relative shrink-0 overflow-hidden">
+                                    <div class="absolute inset-0 bg-cyan-900/20 group-hover:bg-transparent transition-colors z-10"></div>
+                                    <img src="https://images.unsplash.com/photo-1558494949-ef526b0042a0?auto=format&fit=crop&q=80&w=400&h=250" alt="Home Lab" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                </div>
+                                <div class="p-6 flex flex-col justify-between flex-1">
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between items-start">
+                                            <span class="text-xs font-mono text-cyan-400 bg-cyan-950 px-2 py-1 rounded">Infrastructure</span>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-white">Home Lab Server Setup</h3>
+                                        <p class="text-slate-400 text-sm">Built a virtualization cluster using recycled hardware to host multiple services including Pi-hole and Plex.</p>
+                                    </div>
+                                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-6 gap-4">
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Linux</span>
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Docker</span>
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Proxmox</span>
+                                        </div>
+                                        <a href="#" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-cyan-600 text-white text-sm font-medium rounded-lg transition-colors shrink-0">
+                                            <i data-lucide="github" class="w-4 h-4"></i> View Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div class="group bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:border-cyan-500 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:-translate-y-1">
+                            <div class="flex flex-col md:flex-row h-full">
+                                <div class="w-full md:w-64 h-48 md:h-auto relative shrink-0 overflow-hidden">
+                                    <div class="absolute inset-0 bg-cyan-900/20 group-hover:bg-transparent transition-colors z-10"></div>
+                                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400&h=250" alt="AWS App" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                </div>
+                                <div class="p-6 flex flex-col justify-between flex-1">
+                                    <div class="space-y-3">
+                                        <div class="flex justify-between items-start">
+                                            <span class="text-xs font-mono text-cyan-400 bg-cyan-950 px-2 py-1 rounded">Cloud</span>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-white">AWS Auto-Scaling Web App</h3>
+                                        <p class="text-slate-400 text-sm">Deployed a highly available web application with load balancing and auto-scaling policies on AWS.</p>
+                                    </div>
+                                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-6 gap-4">
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">AWS EC2</span>
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">ELB</span>
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Python</span>
+                                        </div>
+                                        <a href="#" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-cyan-600 text-white text-sm font-medium rounded-lg transition-colors shrink-0">
+                                            <i data-lucide="github" class="w-4 h-4"></i> View Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CAREER SECTION -->
+            <section id="career" class="section-content hidden-section space-y-12 pb-12 animate-slide-up">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <h2 class="text-3xl font-bold text-white mb-4">My Career Objective</h2>
+                    <p class="text-xl text-slate-300 italic">
+                        "To design and implement scalable, efficient, and secure cloud infrastructures that drive business innovation."
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Short Term -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i data-lucide="layers" class="text-cyan-400 w-6 h-6"></i>
+                            <h3 class="text-xl font-bold text-white">Short-Term Goals (1-2 Years)</h3>
+                        </div>
+                        <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 h-full border-t-4 border-t-cyan-500">
+                            <ul class="space-y-4">
+                                <li class="flex gap-3 text-slate-300">
+                                    <div class="bg-cyan-500/20 text-cyan-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">1</div>
+                                    Earn the AWS Certified Solutions Architect – Associate (SAA-C03) by Q4 2025.
+                                </li>
+                                <li class="flex gap-3 text-slate-300">
+                                    <div class="bg-cyan-500/20 text-cyan-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">2</div>
+                                    Complete the 'Kubernetes for the Absolute Beginners' course and deploy a cluster.
+                                </li>
+                                <li class="flex gap-3 text-slate-300">
+                                    <div class="bg-cyan-500/20 text-cyan-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">3</div>
+                                    Secure a Summer Internship in 2025 focusing on Linux/DevOps.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Long Term -->
+                    <div>
+                        <div class="flex items-center gap-2 mb-4">
+                            <i data-lucide="cloud" class="text-purple-400 w-6 h-6"></i>
+                            <h3 class="text-xl font-bold text-white">Long-Term Vision (5+ Years)</h3>
+                        </div>
+                        <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 h-full border-t-4 border-t-purple-500">
+                            <ul class="space-y-4">
+                                <li class="flex gap-3 text-slate-300">
+                                    <div class="bg-purple-500/20 text-purple-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">1</div>
+                                    Advance to a Senior Cloud Architect role within 7 years.
+                                </li>
+                                <li class="flex gap-3 text-slate-300">
+                                    <div class="bg-purple-500/20 text-purple-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">2</div>
+                                    Master Multi-Cloud environments (AWS, Azure, GCP).
+                                </li>
+                                <li class="flex gap-3 text-slate-300">
+                                    <div class="bg-purple-500/20 text-purple-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">3</div>
+                                    Obtain the CISM certification for Cloud Security Leadership.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Plan -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-6 border-b border-slate-700 pb-4">
+                        <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
+                            <i data-lucide="target" class="text-white w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-3xl font-bold text-white tracking-tight">Action Plan & Methods</h2>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 -mt-2 -mr-2 bg-slate-700 w-16 h-16 rounded-full opacity-50 blur-xl"></div>
+                            <h4 class="text-lg font-bold text-cyan-400 mb-2 uppercase tracking-wider">Skill Acquisition</h4>
+                            <p class="text-slate-300">Enroll in A Cloud Guru's 'AWS SAA-C03' learning path. Dedicate 10 hours/week to hands-on labs.</p>
+                        </div>
+                        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 -mt-2 -mr-2 bg-slate-700 w-16 h-16 rounded-full opacity-50 blur-xl"></div>
+                            <h4 class="text-lg font-bold text-cyan-400 mb-2 uppercase tracking-wider">Portfolio Building</h4>
+                            <p class="text-slate-300">Develop a 'Resume API' project hosted on AWS Lambda via API Gateway.</p>
+                        </div>
+                        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 -mt-2 -mr-2 bg-slate-700 w-16 h-16 rounded-full opacity-50 blur-xl"></div>
+                            <h4 class="text-lg font-bold text-cyan-400 mb-2 uppercase tracking-wider">Networking</h4>
+                            <p class="text-slate-300">Join the 'Cloud Computing Hong Kong' meetup group. Connect with 3 industry mentors.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
+            <p>© 2024 Ryan. All Rights Reserved.</p>
+            <p class="mt-2 text-xs">Designed for SDD4007 CA Assignment.</p>
+        </footer>
+    </div>
+
+    <!-- AI CHAT WIDGET -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <!-- Chat Window -->
+        <div id="chat-window" class="hidden mb-4 w-80 md:w-96 bg-slate-900 border border-cyan-500/50 rounded-2xl shadow-[0_0_30px_rgba(6,182,212,0.2)] overflow-hidden flex flex-col transition-all duration-300 origin-bottom-right transform scale-95 opacity-0" style="max-height: 500px; height: 60vh;">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-slate-800 to-slate-900 p-4 border-b border-slate-700 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <div class="p-1.5 bg-cyan-500/20 rounded-lg">
+                        <i data-lucide="bot" class="text-cyan-400 w-4 h-4"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-white text-sm">Ryan's AI Assistant</h3>
+                        <span class="text-xs text-green-400 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-blink"></span> Online
+                        </span>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-slate-400 hover:text-white">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Messages -->
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-950/50">
+                <div class="flex justify-start">
+                    <div class="max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed bg-slate-800 text-slate-200 border border-slate-700 rounded-bl-none">
+                        Hi! I'm Ryan's AI assistant. Ask me anything about his skills, projects, or career goals!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input -->
+            <div class="p-3 bg-slate-900 border-t border-slate-800">
+                <div class="flex items-center gap-2 bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 focus-within:border-cyan-500/50 transition-colors">
+                    <input type="text" id="chat-input" placeholder="Ask about my skills..." class="bg-transparent border-none outline-none text-sm text-white flex-1 placeholder:text-slate-600" onkeydown="if(event.key === 'Enter') handleSend()">
+                    <button onclick="handleSend()" id="send-btn" class="p-1.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg transition-colors">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <button onclick="toggleChat()" class="group relative flex items-center justify-center w-14 h-14 bg-cyan-600 hover:bg-cyan-500 text-white rounded-full shadow-lg shadow-cyan-500/30 transition-all hover:scale-110 active:scale-95">
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-slate-900"></span>
+            <i id="chat-icon-open" data-lucide="message-square" class="w-6 h-6"></i>
+            <i id="chat-icon-close" data-lucide="x" class="w-6 h-6 hidden"></i>
+            
+            <span class="absolute right-full mr-4 bg-slate-800 text-white text-xs px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-slate-700 pointer-events-none">
+                Ask AI about Ryan ✨
+            </span>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // --- DATA CONTEXT FOR AI ---
+        const personalData = {
+            name: "Ryan",
+            title: "Aspiring Cloud Architect | Data Centre Specialist",
+            tagline: "Building scalable infrastructure for the future.",
+            email: "240079003@stu.vtc.edu.hk",
+            socials: { github: "#", linkedin: "www.linkedin.com/in/wang-yan-cheung-ryan-84249a32a" }
+        };
+        const timelineData = [
+            { year: "2024 - Present", title: "Higher Diploma in Cloud and Data Centre Administration", school: "IVE", details: "Focusing on cloud infrastructure. GPA: 3.5" },
+            { year: "2018 - 2024", title: "Secondary Education", school: "ABC Secondary School", details: "ICT Elective." }
+        ];
+        const internshipData = {
+            company: "Tech Solutions Ltd.", role: "IT Support Intern", duration: "Summer 2024",
+            tasks: ["Assisted in server rack installation in Tier-3 DC.", "Monitored system health using Nagios.", "Configured Cisco switches."]
+        };
+        const projectsData = [
+            { title: "Home Lab Server Setup", tech: ["Linux", "Docker", "Proxmox"], description: "Built virtualization cluster with recycled hardware." },
+            { title: "AWS Auto-Scaling Web App", tech: ["AWS EC2", "ELB", "Python"], description: "Deployed HA web app with auto-scaling." },
+            { title: "Network Security Audit", tech: ["Wireshark", "Nmap"], description: "Simulated vulnerability assessment." }
+        ];
+        const goalsData = {
+            shortTerm: ["AWS Certified Solutions Architect (SAA-C03)", "Kubernetes Cluster Deployment", "Linux Internship"],
+            longTerm: ["Senior Cloud Architect", "Multi-Cloud Mastery", "CISM Certification"]
+        };
+
+        // --- UI LOGIC ---
+
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Typewriter Effect
+        const tagline = personalData.tagline;
+        let i = 0;
+        const speed = 50;
+        function typeWriter() {
+            if (i < tagline.length) {
+                document.getElementById("typewriter-text").innerHTML += tagline.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+        window.onload = typeWriter;
+
+        // Tab Switching
+        function switchTab(tabName) {
+            // Hide all sections
+            document.querySelectorAll('.section-content').forEach(el => {
+                el.classList.add('hidden-section');
+                el.classList.remove('animate-fade-in', 'animate-slide-up');
+            });
+
+            // Reset Nav Buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/50', 'shadow-[0_0_15px_rgba(34,211,238,0.3)]');
+                btn.classList.add('text-slate-400', 'hover:text-white');
+            });
+
+            // Show selected section
+            const selectedSection = document.getElementById(tabName);
+            selectedSection.classList.remove('hidden-section');
+            
+            // Add animation
+            void selectedSection.offsetWidth; // trigger reflow
+            if(tabName === 'home') selectedSection.classList.add('animate-fade-in');
+            else selectedSection.classList.add('animate-slide-up');
+
+            // Highlight Nav Button
+            const selectedBtn = document.getElementById(`nav-${tabName}`);
+            selectedBtn.classList.remove('text-slate-400', 'hover:text-white');
+            selectedBtn.classList.add('bg-cyan-500/20', 'text-cyan-400', 'border', 'border-cyan-500/50', 'shadow-[0_0_15px_rgba(34,211,238,0.3)]');
+            
+            // Re-render icons for new content if needed
+            lucide.createIcons();
+        }
+
+        // --- CHATBOT LOGIC ---
+        
+        const chatWindow = document.getElementById('chat-window');
+        const chatIconOpen = document.getElementById('chat-icon-open');
+        const chatIconClose = document.getElementById('chat-icon-close');
+        let isChatOpen = false;
+
+        function toggleChat() {
+            isChatOpen = !isChatOpen;
+            if (isChatOpen) {
+                chatWindow.classList.remove('hidden', 'scale-95', 'opacity-0');
+                chatWindow.classList.add('scale-100', 'opacity-100');
+                chatIconOpen.classList.add('hidden');
+                chatIconClose.classList.remove('hidden');
+            } else {
+                chatWindow.classList.remove('scale-100', 'opacity-100');
+                chatWindow.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => chatWindow.classList.add('hidden'), 300); // wait for transition
+                chatIconOpen.classList.remove('hidden');
+                chatIconClose.classList.add('hidden');
+            }
+        }
+
+        function appendMessage(role, text) {
+            const container = document.getElementById('chat-messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+            
+            const bubble = document.createElement('div');
+            bubble.className = `max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${
+                role === 'user' 
+                ? 'bg-cyan-600 text-white rounded-br-none' 
+                : 'bg-slate-800 text-slate-200 border border-slate-700 rounded-bl-none'
+            }`;
+            bubble.textContent = text;
+            
+            msgDiv.appendChild(bubble);
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function appendLoading() {
+            const container = document.getElementById('chat-messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.id = 'loading-msg';
+            msgDiv.className = 'flex justify-start';
+            msgDiv.innerHTML = `
+                <div class="bg-slate-800 p-3 rounded-2xl rounded-bl-none border border-slate-700 flex items-center gap-2">
+                    <i data-lucide="loader-2" class="w-4 h-4 animate-spin text-cyan-400"></i>
+                    <span class="text-xs text-slate-400">Thinking...</span>
+                </div>
+            `;
+            container.appendChild(msgDiv);
+            lucide.createIcons();
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function removeLoading() {
+            const loading = document.getElementById('loading-msg');
+            if(loading) loading.remove();
+        }
+
+        async function handleSend() {
+            const input = document.getElementById('chat-input');
+            const userMsg = input.value.trim();
+            if (!userMsg) return;
+
+            input.value = "";
+            appendMessage('user', userMsg);
+            appendLoading();
+
+            // Gemini API Call
+            const apiKey = ""; // <--- PASTE YOUR API KEY HERE
+            const systemPrompt = `You are a helpful AI assistant for Ryan's portfolio. Data: ${JSON.stringify({personalData, timelineData, internshipData, projectsData, goalsData})}. Answer concisely based on this data.`;
+            
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: userMsg }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+                
+                if (!response.ok) throw new Error('API Error');
+                const data = await response.json();
+                const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I couldn't generate a response.";
+                
+                removeLoading();
+                appendMessage('ai', aiText);
+            } catch (error) {
+                console.error(error);
+                removeLoading();
+                appendMessage('ai', "Error connecting to AI. Please check your API Key.");
+            }
+        }
+    </script>
+</body>
+</html>
