@@ -75,6 +75,17 @@
         .hidden-section {
             display: none;
         }
+        /* Prevent the browser from drawing focus boxes on our custom nav buttons when not keyboard-focused */
+        .nav-btn:focus:not(:focus-visible) { outline: none; box-shadow: none; }
+        /* Nav button base: ensure pseudo-element positions relative to the button */
+        .nav-btn { position: relative; }
+        /* Neutralize any Tailwind utility color/box-shadow for non-active nav items so they don't show the cyan pill */
+        .nav-btn:not(.nav-active) { background: transparent !important; color: #94a3b8 !important; box-shadow: none !important; border-color: #1f2937 !important; }
+
+        /* Active nav button seen in screenshot: cyan pill with left indicator */
+        .nav-btn.nav-active { background: linear-gradient(90deg, rgba(6,182,212,0.12), rgba(59,130,246,0.06)); color: #9be7ff; border-color: rgba(6,182,212,0.3); box-shadow: 0 0 18px rgba(6,182,212,0.08); }
+        .nav-btn .nav-dot { display: none; }
+        .nav-btn.nav-active .nav-dot { display: inline-block; width: 8px; height: 8px; background: #06b6d4; border-radius: 9999px; box-shadow: 0 0 8px rgba(6,182,212,0.22); }
     </style>
 </head>
 <body class="min-h-screen selection:bg-cyan-500/30 overflow-x-hidden">
@@ -87,7 +98,7 @@
         
         <!-- Navigation -->
         <nav class="flex flex-col md:flex-row items-center justify-between py-8">
-            <div class="flex items-center gap-2 mb-4 md:mb-0 cursor-pointer" onclick="switchTab('home')">
+            <div role="button" tabindex="0" class="flex items-center gap-2 mb-4 md:mb-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0" onclick="switchTab('home')" onkeydown="if(event.key === 'Enter') switchTab('home')">
                 <i data-lucide="cpu" class="text-cyan-500 w-8 h-8"></i>
                 <span class="text-2xl font-bold text-white tracking-tighter">
                     Ryan<span class="text-cyan-500"></span>
@@ -95,16 +106,19 @@
             </div>
             
             <div class="flex items-center space-x-2 bg-slate-900/80 backdrop-blur-md p-1.5 rounded-full border border-slate-800">
-                <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-cyan-400 bg-cyan-500/20 border border-cyan-500/50 shadow-[0_0_15px_rgba(34,211,238,0.3)]">
+                <button type="button" onclick="switchTab('home')" id="nav-home" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0">
                     <i data-lucide="terminal" class="w-4 h-4"></i>
+                    <span class="nav-dot hidden w-2 h-2 rounded-full bg-cyan-400"></span>
                     <span class="font-mono text-sm font-semibold">Home</span>
                 </button>
-                <button onclick="switchTab('about')" id="nav-about" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800">
+                <button type="button" onclick="switchTab('about')" id="nav-about" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0">
                     <i data-lucide="briefcase" class="w-4 h-4"></i>
+                    <span class="nav-dot hidden w-2 h-2 rounded-full bg-cyan-400"></span>
                     <span class="font-mono text-sm font-semibold">About Me</span>
                 </button>
-                <button onclick="switchTab('career')" id="nav-career" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800">
+                <button type="button" onclick="switchTab('career')" id="nav-career" class="nav-btn flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-0">
                     <i data-lucide="target" class="w-4 h-4"></i>
+                    <span class="nav-dot hidden w-2 h-2 rounded-full bg-cyan-400"></span>
                     <span class="font-mono text-sm font-semibold">Goals & Plan</span>
                 </button>
             </div>
@@ -152,7 +166,7 @@
                 
                 <!-- Intro -->
                 <div>
-                    <div class="flex items-center space-x-3 mb-6 border-b border-slate-700 pb-4">
+                    <div class="flex items-center space-x-3 mb-6 pb-4">
                         <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
                             <i data-lucide="terminal" class="text-white w-6 h-6"></i>
                         </div>
@@ -161,9 +175,15 @@
                     
                     <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 w-full">
                         <p class="text-slate-300 leading-relaxed text-lg mb-6">
-                            I am a dedicated student pursuing a <strong class="text-cyan-400">Higher Diploma in Cloud and Data Centre Administration</strong>. 
-                            My passion lies in designing robust infrastructure and automating workflows. I am eager to apply my knowledge in virtualization, 
-                            networking, and cloud platforms to solve real-world problems.
+                            I am an aspiring Cloud Architect and dedicated student currently pursuing a <strong class="text-cyan-400">Higher Diploma in Cloud and Data Centre Administration.</strong>
+                            My passion lies in bridging the gap between physical infrastructure and modern cloud automation.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-lg mb-6">
+                            Currently, I apply this knowledge practically as a <strong class="text-cyan-400">Data Center Customer Operations Engineer Intern at Equinix.</strong>
+                            Working within a mission-critical Tier-3 Data Center, I am responsible for physical server deployment and structured cabling, while also ensuring operational continuity through Nagios health monitoring and security patching. On the network side, I actively configure Cisco switches and VLANs to maintain secure traffic segregation.
+                        </p>
+                        <p class="text-slate-300 leading-relaxed text-lg mb-6">
+                            By combining this hands-on hardware experience with my academic focus on <strong class="text-cyan-400">Virtualization, Python, and Cloud Computing,</strong> I aim to design robust, scalable systems that solve complex real-world problems.
                         </p>
                         <div class="flex flex-wrap gap-2">
                             <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Cloud Computing</span>
@@ -172,13 +192,15 @@
                             <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Virtualization</span>
                             <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Python</span>
                             <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Cybersecurity</span>
+                            <span class="px-3 py-1 bg-slate-700 text-cyan-300 text-sm rounded-md font-mono border border-slate-600">Database Management</span>
+
                         </div>
                     </div>
                 </div>
 
                 <!-- Timeline -->
                 <div>
-                    <div class="flex items-center space-x-3 mb-6 border-b border-slate-700 pb-4">
+                    <div class="flex items-center space-x-3 mb-6 pb-4">
                         <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
                             <i data-lucide="graduation-cap" class="text-white w-6 h-6"></i>
                         </div>
@@ -187,38 +209,44 @@
                     
                     <div class="space-y-8 relative border-l-2 border-slate-700 ml-3 pl-8">
                         <div class="relative group">
-                            <div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-cyan-500 group-hover:scale-125 transition-transform"></div>
+                            <a href="https://www.vtc.edu.hk/admission/tc/programme/it114115-higher-diploma-in-cloud-and-data-centre-administration/"><div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-cyan-500 group-hover:scale-125 transition-transform"></div>
                             <h3 class="text-xl font-bold text-white">Higher Diploma in Cloud and Data Centre Administration</h3>
                             <span class="text-cyan-400 font-mono text-sm">2024 - Present</span>
-                            <p class="text-slate-400 mt-1 font-medium">IVE (Institute of Vocational Education)</p>
-                            <p class="text-slate-500 mt-2 text-sm">Focusing on cloud infrastructure, virtualization, and network security. Current GPA: 3.5</p>
+                            <p class="text-slate-400 mt-1 font-medium">Hong Kong Institute of Information Technology</p>
+                            <p class="text-slate-500 mt-2 text-sm">Focusing on cloud computer, infrastructure, virtualization, and network security.</p></a>
                         </div>
                         <div class="relative group">
-                            <div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-cyan-500 group-hover:scale-125 transition-transform"></div>
+                            <a href="https://www.vtc.edu.hk/admission/en/programme/fs113002n-diploma-of-foundation-studies-information-technology/"><div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-cyan-500 group-hover:scale-125 transition-transform"></div>
+                            <h3 class="text-xl font-bold text-white">Diploma of Foundation Studies (Information Technology)</h3>
+                            <span class="text-cyan-400 font-mono text-sm">2023 - 2024</span>
+                            <p class="text-slate-400 mt-1 font-medium">IVE (Institute of Vocational Education)</p>
+                            <p class="text-slate-500 mt-2 text-sm">Focusing on foundation IT Information Technology such as software development, networking, and database management.</p></a>
+                        </div>
+                        <div class="relative group">
+                            <a href="https://www.slc.edu.hk/"><div class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-900 bg-cyan-500 group-hover:scale-125 transition-transform"></div>
                             <h3 class="text-xl font-bold text-white">Secondary Education</h3>
-                            <span class="text-cyan-400 font-mono text-sm">2018 - 2024</span>
-                            <p class="text-slate-400 mt-1 font-medium">ABC Secondary School</p>
-                            <p class="text-slate-500 mt-2 text-sm">ICT Elective. Member of Computer Society.</p>
+                            <span class="text-cyan-400 font-mono text-sm">2017 - 2023</span>
+                            <p class="text-slate-400 mt-1 font-medium">Shek Lei Catholic Secondary School</p></a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Internship -->
+                <!-- Work Experience -->
                 <div>
-                    <div class="flex items-center space-x-3 mb-6 border-b border-slate-700 pb-4">
+                    <div class="flex items-center space-x-3 mb-6 pb-4">
                         <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
                             <i data-lucide="server" class="text-white w-6 h-6"></i>
                         </div>
-                        <h2 class="text-3xl font-bold text-white tracking-tight">Internship Experience</h2>
+                        <h2 class="text-3xl font-bold text-white tracking-tight">Work Experience</h2>
                     </div>
 
                     <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 border-l-4 border-l-blue-500 rounded-xl p-6">
                         <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
                             <div>
-                                <h3 class="text-2xl font-bold text-white">IT Support Intern</h3>
-                                <p class="text-cyan-400 text-lg">Tech Solutions Ltd.</p>
+                                <h3 class="text-2xl font-bold text-white">Data Center Customer Operations Engineer Intern</h3>
+                                <p class="text-cyan-400 text-lg">Equinix</p>
                             </div>
-                            <span class="px-4 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm font-mono mt-2 md:mt-0 w-fit">Summer 2024</span>
+                            <span class="px-4 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm font-mono mt-2 md:mt-0 w-fit">Sep 2025 - Present</span>
                         </div>
                         <ul class="space-y-2">
                             <li class="flex items-start gap-2 text-slate-300"><i data-lucide="chevron-right" class="text-blue-500 w-5 h-5 mt-0.5"></i> Assisted in server rack installation and cabling in Tier-3 Data Centre.</li>
@@ -230,7 +258,7 @@
 
                 <!-- Projects -->
                 <div>
-                    <div class="flex items-center space-x-3 mb-6 border-b border-slate-700 pb-4">
+                    <div class="flex items-center space-x-3 mb-6 pb-4">
                         <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
                             <i data-lucide="code" class="text-white w-6 h-6"></i>
                         </div>
@@ -243,52 +271,26 @@
                             <div class="flex flex-col md:flex-row h-full">
                                 <div class="w-full md:w-64 h-48 md:h-auto relative shrink-0 overflow-hidden">
                                     <div class="absolute inset-0 bg-cyan-900/20 group-hover:bg-transparent transition-colors z-10"></div>
-                                    <img src="https://images.unsplash.com/photo-1558494949-ef526b0042a0?auto=format&fit=crop&q=80&w=400&h=250" alt="Home Lab" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    <img src="D:\personal-website\porject_showcare.png" alt="Home Lab" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                                 </div>
                                 <div class="p-6 flex flex-col justify-between flex-1">
                                     <div class="space-y-3">
                                         <div class="flex justify-between items-start">
-                                            <span class="text-xs font-mono text-cyan-400 bg-cyan-950 px-2 py-1 rounded">Infrastructure</span>
+                                            <span class="text-xs font-mono text-cyan-400 bg-cyan-950 px-2 py-1 rounded">Cloud & AI</span>
                                         </div>
-                                        <h3 class="text-xl font-bold text-white">Home Lab Server Setup</h3>
-                                        <p class="text-slate-400 text-sm">Built a virtualization cluster using recycled hardware to host multiple services including Pi-hole and Plex.</p>
+                                        <h3 class="text-xl font-bold text-white">Childhood Development Analysis System</h3>
+                                        <p class="text-slate-400 text-sm">A comprehensive platform utilizing Computer Vision and AI Agents to analyze developmental milestones. Features a retrieval-augmented generation (RAG) system for context-aware insights, powered by Google Cloud and Python.</p>
                                     </div>
                                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-6 gap-4">
                                         <div class="flex flex-wrap gap-2">
-                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Linux</span>
-                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Docker</span>
-                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Proxmox</span>
-                                        </div>
-                                        <a href="#" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-cyan-600 text-white text-sm font-medium rounded-lg transition-colors shrink-0">
-                                            <i data-lucide="github" class="w-4 h-4"></i> View Code
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Project 2 -->
-                        <div class="group bg-slate-800 rounded-xl overflow-hidden border border-slate-700 hover:border-cyan-500 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:-translate-y-1">
-                            <div class="flex flex-col md:flex-row h-full">
-                                <div class="w-full md:w-64 h-48 md:h-auto relative shrink-0 overflow-hidden">
-                                    <div class="absolute inset-0 bg-cyan-900/20 group-hover:bg-transparent transition-colors z-10"></div>
-                                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400&h=250" alt="AWS App" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                                </div>
-                                <div class="p-6 flex flex-col justify-between flex-1">
-                                    <div class="space-y-3">
-                                        <div class="flex justify-between items-start">
-                                            <span class="text-xs font-mono text-cyan-400 bg-cyan-950 px-2 py-1 rounded">Cloud</span>
-                                        </div>
-                                        <h3 class="text-xl font-bold text-white">AWS Auto-Scaling Web App</h3>
-                                        <p class="text-slate-400 text-sm">Deployed a highly available web application with load balancing and auto-scaling policies on AWS.</p>
-                                    </div>
-                                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-6 gap-4">
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">AWS EC2</span>
-                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">ELB</span>
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">AI Agent</span>
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Computer Version</span>
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">RAG</span>
                                             <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Python</span>
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">TensorFlow</span>
+                                            <span class="text-xs text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">Google Cloud</span>
                                         </div>
-                                        <a href="#" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-cyan-600 text-white text-sm font-medium rounded-lg transition-colors shrink-0">
+                                        <a href="https://github.com/LYK0226/XIAOICE" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-slate-700 hover:bg-cyan-600 text-white text-sm font-medium rounded-lg transition-colors shrink-0">
                                             <i data-lucide="github" class="w-4 h-4"></i> View Code
                                         </a>
                                     </div>
@@ -304,7 +306,9 @@
                 <div class="text-center max-w-3xl mx-auto mb-12">
                     <h2 class="text-3xl font-bold text-white mb-4">My Career Objective</h2>
                     <p class="text-xl text-slate-300 italic">
-                        "To design and implement scalable, efficient, and secure cloud infrastructures that drive business innovation."
+                        "To bridge the gap between physical data center operations and modern cloud automation. 
+                        My mission is to design resilient, AI-integrated infrastructures that are secure by design and scalable by default, 
+                        driving operational excellence for enterprise environments"
                     </p>
                 </div>
 
@@ -319,15 +323,15 @@
                             <ul class="space-y-4">
                                 <li class="flex gap-3 text-slate-300">
                                     <div class="bg-cyan-500/20 text-cyan-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">1</div>
-                                    Earn the AWS Certified Solutions Architect – Associate (SAA-C03) by Q4 2025.
+                                    Achieve the AWS Certified Solutions Architect – Associate (SAA-C03) and the Google Cloud Associate Cloud Engineer exams by Q4 2025 to validate cross-platform competency.
                                 </li>
                                 <li class="flex gap-3 text-slate-300">
                                     <div class="bg-cyan-500/20 text-cyan-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">2</div>
-                                    Complete the 'Kubernetes for the Absolute Beginners' course and deploy a cluster.
+                                    Go beyond "Absolute Beginners"—obtain the CKA (Certified Kubernetes Administrator) certification and deploy a high-availability microservices cluster using Helm charts and ArgoCD.
                                 </li>
                                 <li class="flex gap-3 text-slate-300">
                                     <div class="bg-cyan-500/20 text-cyan-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">3</div>
-                                    Secure a Summer Internship in 2025 focusing on Linux/DevOps.
+                                    Leverage current experience at Equinix to transition into a Junior Cloud Engineer or DevOps role, specifically focusing on Infrastructure as Code (Terraform) and CI/CD pipelines.
                                 </li>
                             </ul>
                         </div>
@@ -343,15 +347,15 @@
                             <ul class="space-y-4">
                                 <li class="flex gap-3 text-slate-300">
                                     <div class="bg-purple-500/20 text-purple-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">1</div>
-                                    Advance to a Senior Cloud Architect role within 7 years.
+                                    Advance to a Principal Cloud Architect role, leading large-scale hybrid cloud migrations and digital transformation strategies for Fortune 500 clients.
                                 </li>
                                 <li class="flex gap-3 text-slate-300">
                                     <div class="bg-purple-500/20 text-purple-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">2</div>
-                                    Master Multi-Cloud environments (AWS, Azure, GCP).
+                                    Obtain the CISM (Certified Information Security Manager) and CISSP certifications to govern enterprise security frameworks and lead DevSecOps initiatives.
                                 </li>
                                 <li class="flex gap-3 text-slate-300">
                                     <div class="bg-purple-500/20 text-purple-400 h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-sm font-bold">3</div>
-                                    Obtain the CISM certification for Cloud Security Leadership.
+                                    Master Multi-Cloud Networking and FinOps strategies to optimize cost and performance across AWS, Azure, and GCP environments.
                                 </li>
                             </ul>
                         </div>
@@ -359,29 +363,58 @@
                 </div>
 
                 <!-- Action Plan -->
-                <div>
-                    <div class="flex items-center space-x-3 mb-6 border-b border-slate-700 pb-4">
+                <div class="mt-12 md:mt-16 py-10 md:py-16">
+                    <div class="flex items-center space-x-3 mb-8">
                         <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg">
                             <i data-lucide="target" class="text-white w-6 h-6"></i>
                         </div>
                         <h2 class="text-3xl font-bold text-white tracking-tight">Action Plan & Methods</h2>
                     </div>
                     
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 relative overflow-hidden">
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- 1. Certification Strategy -->
+                        <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 relative overflow-hidden">
                             <div class="absolute top-0 right-0 -mt-2 -mr-2 bg-slate-700 w-16 h-16 rounded-full opacity-50 blur-xl"></div>
-                            <h4 class="text-lg font-bold text-cyan-400 mb-2 uppercase tracking-wider">Skill Acquisition</h4>
-                            <p class="text-slate-300">Enroll in A Cloud Guru's 'AWS SAA-C03' learning path. Dedicate 10 hours/week to hands-on labs.</p>
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="text-slate-800 bg-cyan-400 w-8 h-8 flex items-center justify-center rounded-full font-bold">1</div>
+                                <h4 class="text-lg font-bold text-cyan-400 mb-0 uppercase tracking-wider">CERTIFICATION STRATEGY</h4>
+                            </div>
+                            <p class="text-sm text-slate-300 italic mb-3">Focuses on passing the AWS SAA-C03 and learning Kubernetes.</p>
+                            <p class="text-slate-300 font-medium mb-2">"The 10-Hour Rule"</p>
+                            <ul class="list-disc ml-5 text-slate-300 space-y-2">
+                                <li><strong>Weekday Mornings (1hr):</strong> Focus on theory and practice exams for AWS SAA-C03. Use active recall techniques rather than passive video watching.</li>
+                                <li><strong>Weekend Labs (5hrs):</strong> Dedicate Saturdays to building "broken" Kubernetes clusters on local VMs and fixing them, preparing for the CKA exam and real-world deployment challenges.</li>
+                            </ul>
                         </div>
-                        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 relative overflow-hidden">
+
+                        <!-- 2. Applied Engineering -->
+                        <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 relative overflow-hidden">
                             <div class="absolute top-0 right-0 -mt-2 -mr-2 bg-slate-700 w-16 h-16 rounded-full opacity-50 blur-xl"></div>
-                            <h4 class="text-lg font-bold text-cyan-400 mb-2 uppercase tracking-wider">Portfolio Building</h4>
-                            <p class="text-slate-300">Develop a 'Resume API' project hosted on AWS Lambda via API Gateway.</p>
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="text-slate-800 bg-cyan-400 w-8 h-8 flex items-center justify-center rounded-full font-bold">2</div>
+                                <h4 class="text-lg font-bold text-cyan-400 mb-0 uppercase tracking-wider">APPLIED ENGINEERING</h4>
+                            </div>
+                            <p class="text-sm text-slate-300 italic mb-3">Focuses on turning your Equinix experience into a career ladder.</p>
+                            <p class="text-slate-300 font-medium mb-2">"Infrastructure as Code (IaC) Adoption"</p>
+                            <ul class="list-disc ml-5 text-slate-300 space-y-2">
+                                <li><strong>Lab-to-Prod Pipeline:</strong> Stop manually clicking in the AWS console. Refactor the Childhood Development Analysis System using Terraform or CloudFormation.</li>
+                                <li><strong>Workplace Shadowing:</strong> Leverage the Equinix internship by asking to shadow Senior Network Engineers during maintenance windows and document how physical cabling decisions impact logical VLAN performance.</li>
+                            </ul>
                         </div>
-                        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 relative overflow-hidden">
+
+                        <!-- 3. Strategic Networking -->
+                        <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 relative overflow-hidden">
                             <div class="absolute top-0 right-0 -mt-2 -mr-2 bg-slate-700 w-16 h-16 rounded-full opacity-50 blur-xl"></div>
-                            <h4 class="text-lg font-bold text-cyan-400 mb-2 uppercase tracking-wider">Networking</h4>
-                            <p class="text-slate-300">Join the 'Cloud Computing Hong Kong' meetup group. Connect with 3 industry mentors.</p>
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="text-slate-800 bg-cyan-400 w-8 h-8 flex items-center justify-center rounded-full font-bold">3</div>
+                                <h4 class="text-lg font-bold text-cyan-400 mb-0 uppercase tracking-wider">STRATEGIC NETWORKING</h4>
+                            </div>
+                            <p class="text-sm text-slate-300 italic mb-3">Focuses on finding mentors and future jobs.</p>
+                            <p class="text-slate-300 font-medium mb-2">"Value-First Networking"</p>
+                            <ul class="list-disc ml-5 text-slate-300 space-y-2">
+                                <li><strong>The '3-Mentor' Method:</strong> Prepare architectural diagrams of personal projects and ask Senior Architects at the Cloud Computing Hong Kong meetup to critique your design to get targeted, high-level feedback.</li>
+                                <li><strong>Documentation:</strong> Start a technical blog on LinkedIn detailing challenges and lessons from the Equinix internship (e.g., "What I learned about redundancy from cabling a Tier-3 Data Center").</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -390,8 +423,7 @@
 
         <!-- Footer -->
         <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
-            <p>© 2024 Ryan. All Rights Reserved.</p>
-            <p class="mt-2 text-xs">Designed for SDD4007 CA Assignment.</p>
+            <p>© 2025 Ryan. All Rights Reserved.</p>
         </footer>
     </div>
 
@@ -482,20 +514,54 @@
         // Initialize Icons
         lucide.createIcons();
 
-        // Typewriter Effect
+        // Typewriter Effect (looping)
         const tagline = personalData.tagline;
-        let i = 0;
-        const speed = 50;
-        function typeWriter() {
-            if (i < tagline.length) {
-                document.getElementById("typewriter-text").innerHTML += tagline.charAt(i);
-                i++;
-                setTimeout(typeWriter, speed);
+        const typingSpeed = 50; // ms per character typed
+        const deletingSpeed = 30; // ms per character deleted
+        const pauseAfterTyping = 1800; // ms to pause after full text
+        const pauseAfterDeleting = 600; // ms to pause after fully deleted
+
+        function startTypewriterLoop() {
+            const el = document.getElementById('typewriter-text');
+            let index = 0;
+            let deleting = false;
+
+            function tick() {
+                if (!deleting) {
+                    if (index < tagline.length) {
+                        el.innerHTML = tagline.slice(0, index + 1);
+                        index++;
+                        setTimeout(tick, typingSpeed);
+                    } else {
+                        // full text typed
+                        setTimeout(() => { deleting = true; tick(); }, pauseAfterTyping);
+                    }
+                } else {
+                    if (index > 0) {
+                        el.innerHTML = tagline.slice(0, index - 1);
+                        index--;
+                        setTimeout(tick, deletingSpeed);
+                    } else {
+                        // fully deleted, pause before re-typing
+                        setTimeout(() => { deleting = false; tick(); }, pauseAfterDeleting);
+                    }
+                }
             }
+            tick();
         }
-        window.onload = typeWriter;
+        window.onload = function() { startTypewriterLoop(); switchTab('home'); };
 
         // Tab Switching
+        let lastInputWasPointer = false;
+
+        // Track input method for the nav so we can blur only when pointer was used
+        document.addEventListener('pointerdown', (e) => {
+            if (e.target.closest && e.target.closest('.nav-btn, [role=button]')) lastInputWasPointer = true;
+        }, { capture: true });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' || e.key === 'Enter' || e.key === ' ') lastInputWasPointer = false;
+        }, { capture: true });
+
         function switchTab(tabName) {
             // Hide all sections
             document.querySelectorAll('.section-content').forEach(el => {
@@ -503,10 +569,12 @@
                 el.classList.remove('animate-fade-in', 'animate-slide-up');
             });
 
-            // Reset Nav Buttons
+            // Reset Nav Buttons (remove any active or utility classes so we have a consistent base)
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/50', 'shadow-[0_0_15px_rgba(34,211,238,0.3)]');
+                btn.classList.remove('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/50', 'shadow-[0_0_15px_rgba(34,211,238,0.3)]', 'nav-active', 'border');
                 btn.classList.add('text-slate-400', 'hover:text-white');
+                // remove inline padding if present
+                btn.style.paddingLeft = '';
             });
 
             // Show selected section
@@ -520,11 +588,19 @@
 
             // Highlight Nav Button
             const selectedBtn = document.getElementById(`nav-${tabName}`);
-            selectedBtn.classList.remove('text-slate-400', 'hover:text-white');
-            selectedBtn.classList.add('bg-cyan-500/20', 'text-cyan-400', 'border', 'border-cyan-500/50', 'shadow-[0_0_15px_rgba(34,211,238,0.3)]');
+            // Remove nav-active class from all
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('nav-active'));
+            // Set nav-active on selected btn
+            selectedBtn.classList.add('nav-active');
             
             // Re-render icons for new content if needed
             lucide.createIcons();
+
+            // Remove focus from the clicked button to avoid leftover focus outlines for pointer users
+            if (lastInputWasPointer && document.activeElement && document.activeElement instanceof HTMLElement) {
+                document.activeElement.blur();
+            }
+            lastInputWasPointer = false; // reset
         }
 
         // --- CHATBOT LOGIC ---
